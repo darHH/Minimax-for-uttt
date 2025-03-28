@@ -6,123 +6,126 @@ import time
 from utils import State, Action, load_data
 
 class StudentAgent:
-    def __init__(self, depth_limit=2):
+    def __init__(self, depth_limit=4):
         self.depth_limit = depth_limit
-        """Instantiates your agent.
-        """
-        
-    # takes in a local 3x3 board and returns 1, -1 for win and lost, 0 otherwise.
-    def check_board_status(self, board: np.ndarray) -> int:
-        for i in range(3):
-            # Check rows
-            if np.all(board[i, :] == 1):
-                return 1 
-            if np.all(board[i, :] == 2):
-                return -1  
+
+    # evaluates a local
+    def evaluate(self, state):
+
+        evaluation = 0 
+        # 0 for ongoing, 1 for p1, 2 for p2, 3 for draw
+        local_board_status = state.local_board_status
+        # if terminal, if win, return max + 1, else if lose return min - 1 and stop
+        # if state.is_terminal():
+        #     if state.terminal_utility() == 1:
+        #         return 376 # max + 1
+        #     elif state.terminal_utility() == 0:
+        #         return -597 # max - 1
             
-            # Check columns
-            if np.all(board[:, i] == 1):
-                return 1  
-            if np.all(board[:, i] == 2):
-                return -1 
+        # takes in local board which is 3x3 numpy
+        def evaluate_local_board(local_board, state):
 
-        # Check diagonals
-        if np.all(np.diagonal(board) == 1):
-            return 1  
-        if np.all(np.diagonal(board) == 2):
-            return -1 
+            evaluation = 0
 
-        if np.all(np.diagonal(np.fliplr(board)) == 1):
-            return 1  
-        if np.all(np.diagonal(np.fliplr(board)) == 2):
-            return -1 
- 
-        return 0  # Draw
+            # 0 for empty, 1 for player 1 and 2 for player 2
+            # for easier reference
+            a1, a2, a3 = local_board[0]
+            b1, b2, b3 = local_board[1]
+            c1, c2, c3 = local_board[2]
 
-    # takes in a local board (3x3 matrix), and evaluates that local board.
-    # can be taken by using board[0-2][0-2]
-    # SINCE STATE IS IMMUTABLE, IMMUTABLE_LOCAL_BOARD WILL BE PASSED
-    def evaluate_local_board(self, immutable_local_board):
-        # flattened_board = [item for row in local_board for item in row]
-        evaluation = 0
+            # 0 for ongoing, 1 for p1, 2 for p2, 3 for draw
+            local_board_status = state.local_board_status
 
-        # make it mutable
-        local_board = immutable_local_board.copy()
+            # if global board sides are still available, then +EVAL for local sides to force opponent to play global sides, else -EVAL to prevent opponent from playing any board
+            if a2 ==  1 and local_board_status[0][1] == 0:
+                evaluation += 3
+            elif a2 ==  1 and local_board_status[0][1] != 0:
+                evaluation += -3
+            if b1 == 1 and local_board_status[1][0] == 0:
+                evaluation += 3
+            elif b1 ==  1 and local_board_status[1][0] != 0:
+                evaluation += -3
+            if b3 == 1 and local_board_status[1][2] == 0:
+                evaluation += 3
+            elif b3 == 1 and local_board_status[1][2] != 0:
+                evaluation += -3
+            if c2 == 1 and local_board_status[2][1] == 0:
+                evaluation += 3
+            elif c2 == 1 and local_board_status[2][1] != 0:
+                evaluation += -3
+            
+            # if global board corners are still available, then +0 
 
-        # assign values for easier access
-        a1, a2, a3 = local_board[0] 
-        b1, b2, b3 = local_board[1] 
-        c1, c2, c3 = local_board[2]
-
-        # first criteria: positional penalty and reward
-        importance_of_square = [[0.2, 0.17, 0.2], [0.17, 0.22, 0.17], [0.2, 0.17, 0.2]]
-
-        # check if win or lose first before local_board changes from values 1,0,2 to 1,0,-1
-        evaluation += self.check_board_status(local_board) * 12
-
-        for element in np.nditer(local_board):
-            # change opponent position to be -1 for this and subsequent criterias
-            if element == 2:
-                element = -1
-            evaluation += np.sum(local_board * importance_of_square)
-
-        # second criteria: potential line formations for opponent
-        if local_board[0].sum() == -2 or local_board[1].sum() == -2 or local_board[2].sum() == -2:
-            evaluation -= 6
-        if local_board[:, 0].sum() == -2 or local_board[:, 1].sum() == -2 or local_board[:, 2].sum() == -2:
-            evaluation -= 6
-        if a1 + b2 + c3 == -2 or c1 + b2 + a3 == -2:
-            evaluation -= 6
-
-        # third criteria: 2 square me 1 square opponent, potentially blocking me
-        if (a1 + a2 == 2 and a3 == -1) or (a1 + a3 == 2 and a2 == -1) or (a2 + a3 == 2 and a1 == -1) or (b1 + b2 == 2 and b3 == -1) or (b1 + b3 == 2 and b2 == -1) or (b2 + b3 == 2 and b1 == -1) or (c1 + c2 == 2 and c3 == -1) or (c1 + c3 == 2 and c2 == -1) or (c2 + c3 == 2 and c1 == -1) or (a1 + b1 == 2 and c1 == -1) or (a1 + c1 == 2 and  b1 == -1) or (b1 + c1 == 2 and a1 == -1) or (a2 + b2 == 2 and c2 == -1) or (a2 + c2 == 2 and  b2 == -1) or (b2 + c2 == 2 and a2 == -1) or (a3 + b3 == 2 and c3 == -1) or (a3 + c3 == 2 and  b3 == -1) or (b3 + c3 == 2 and a3 == -1) or (a1 + b2 == 2 and c3 == -1) or (a1 + c3 == 2 and b2 == -1) or (b2 + c3 == 2 and a1 == -1) + (a3 + b2 == 2 and c1 == -1) or (a3 + c1 == 2 and b2 == -1) or (b3 + c1 == 2 and a3 == -1):
-            evaluation -= 9
-
-        # fourth criteria: potential line formations for me 
-                # second criteria: potential line formations for opponent
-        if local_board[0].sum() == 2 or local_board[1].sum() == 2 or local_board[2].sum() == 2:
-            evaluation += 6
-        if local_board[:, 0].sum() == 2 or local_board[:, 1].sum() == 2 or local_board[:, 2].sum() == 2:
-            evaluation += 6
-        if a1 + b2 + c3 == 2 or c1 + b2 + a3 == 2:
-            evaluation += 6
-
-        # fifth criteria: 2 square opponent 1 square me, potentially blocking opponent
-        if (a1 + a2 == -2 and a3 == 1) or (a1 + a3 == -2 and a2 == 1) or (a2 + a3 == -2 and a1 == 1) or (b1 + b2 == -2 and b3 == 1) or (b1 + b3 == -2 and b2 == 1) or (b2 + b3 == -2 and b1 == 1) or (c1 + c2 == -2 and c3 == 1) or (c1 + c3 == -2 and c2 == 1) or (c2 + c3 == -2 and c1 == 1) or (a1 + b1 == -2 and c1 == 1) or (a1 + c1 == -2 and  b1 == 1) or (b1 + c1 == -2 and a1 == 1) or (a2 + b2 == -2 and c2 == 1) or (a2 + c2 == -2 and  b2 == 1) or (b2 + c2 == -2 and a2 == 1) or (a3 + b3 == -2 and c3 == 1) or (a3 + c3 == -2 and  b3 == 1) or (b3 + c3 == -2 and a3 == 1) or (a1 + b2 == -2 and c3 == 1) or (a1 + c3 == -2 and b2 == 1) or (b2 + c3 == -2 and a1 == 1) + (a3 + b2 == -2 and c1 == 1) or (a3 + c1 == -2 and b2 == 1) or (b3 + c1 == -2 and a3 == 1):
-            evaluation += 9
-
-        return evaluation
-
-    def evaluate_global_board(self, state):
-        evaluation =  0
-        importance_of_local_board = [[1.4, 1, 1.4], [1, 1.75, 1], [1.4, 1, 1.4]]
-        if state.prev_local_action is not None:
-            gx, gy = state.prev_local_action
-            current_local_board = state.board[gx, gy]
-        else:
-            current_local_board = (-1, -1)
+            # if global board center is still available, then -EVAL for center to not let opponent play center board 
+            if b2 == 1 and local_board_status[1][1] == 0:
+                evaluation += -6
+            elif b2 == 1 and local_board_status[1][1] != 0:
+                evaluation += -3
+                
+            return evaluation
         
-        # iterate through all 9 local boards
-        for i in range (0, 3):
-            for j in range (0, 3):
-                evaluation  += self.evaluate_local_board(state.board[i][j] * 1.5 * importance_of_local_board[i][j])
-                # checks if it is current active board
-                if (state.board[i][j] == current_local_board).all():
-                    evaluation += self.evaluate_local_board(state.board[i][j] * importance_of_local_board[i][j])
-                # checks if this board is won
-                evaluation += self.check_board_status(state.board[i][j])
+        # for winning middle square, sides and corners, +EVAL respectively
+        strategic_positions = [
+            ((1, 1), 50),   # Center board (highest strategic value)
+            ((0, 1), 30),   # Top side
+            ((1, 0), 30),   # Left side
+            ((1, 2), 30),   # Right side
+            ((2, 1), 30),   # Bottom side
+            ((0, 0), 20),   # Top-left corner
+            ((0, 2), 20),   # Top-right corner
+            ((2, 0), 20),   # Bottom-left corner
+            ((2, 2), 20)    # Bottom-right corner
+        ]
 
-        # if global win 
-        evaluation += self.check_board_status(state.local_board_status) * 5000
+        for (row, col), value in strategic_positions:
+            if local_board_status[row][col] == 1:
+                evaluation += value
+            elif local_board_status[row][col] == 2:
+                evaluation -= value
 
-        # add bonus for overall state but must 
-        evaluation += self.evaluate_local_board(state.local_board_status) * 150
+        # and also evaluate each local board
+        for i in range(0,3):
+            for j in range(0,3): 
+                evaluation += evaluate_local_board(state.board[i][j], state)
+
+            # for getting two in a row, +40 or -40
+            winning_lines = [
+            # Rows
+            [(0, 0), (0, 1), (0, 2)],
+            [(1, 0), (1, 1), (1, 2)],
+            [(2, 0), (2, 1), (2, 2)],
+            # Columns
+            [(0, 0), (1, 0), (2, 0)],
+            [(0, 1), (1, 1), (2, 1)],
+            [(0, 2), (1, 2), (2, 2)],
+            # Diagonals
+            [(0, 0), (1, 1), (2, 2)],
+            [(0, 2), (1, 1), (2, 0)]
+        ]
+
+        for line in winning_lines:
+            # Get the contents of these three squares
+            squares = [local_board_status[r, c] for (r, c) in line]
+            
+            # Count how many belong to each player (1 or 2) vs empty (0)
+            count_1 = squares.count(1)  
+            count_2 = squares.count(2) 
+            count_0 = squares.count(0)  
+
+            # If you have 2 in this line and 1 is empty => you can win in one move
+            if count_1 == 2 and count_0 == 1 and count_2 == 0:
+                evaluation += 40
+            
+            # If the opponent has 2 in this line and 1 is empty => they can win in one move
+            if count_2 == 2 and count_0 == 1 and count_1 == 0:
+                evaluation -= 40
 
         return evaluation
+        
     
     def minimax_alpha_beta(self, state, depth, alpha, beta, maximizing_player):
         if depth == 0 or state.is_terminal():
-            return self.evaluate_global_board(state)
+            return self.evaluate(state)
 
         valid_actions = state.get_all_valid_actions()
 

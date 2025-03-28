@@ -1,0 +1,607 @@
+
+--- Evaluation Function Analysis ---
+Total Test Cases: 80000
+Prediction Range: [-503, 341]
+Mean Absolute Error: nan
+
+--- Top 10 Most Problematic States ---
+
+Problematic State Details:
+Index: 12242
+True Value: -0.992
+Predicted Value: 275
+Normalized Value: 0.8436018957345972
+Absolute Error: 1.8356018957345972
+
+Local Board Status:
+[[1 0 1]
+ [0 1 1]
+ [0 2 0]]
+
+Local Board Details:
+Position (0, 0):
+[[1 1 1]
+ [1 2 1]
+ [2 1 1]]
+Board Status: 1
+Position (0, 1):
+[[0 1 2]
+ [2 2 1]
+ [0 2 0]]
+Board Status: 0
+Position (0, 2):
+[[2 2 1]
+ [1 1 1]
+ [0 2 2]]
+Board Status: 1
+Position (1, 0):
+[[2 0 2]
+ [2 2 1]
+ [0 1 1]]
+Board Status: 0
+Position (1, 1):
+[[2 0 1]
+ [1 1 2]
+ [1 0 0]]
+Board Status: 1
+Position (1, 2):
+[[1 2 2]
+ [0 1 2]
+ [2 2 1]]
+Board Status: 1
+Position (2, 0):
+[[2 1 1]
+ [2 0 2]
+ [0 2 0]]
+Board Status: 0
+Position (2, 1):
+[[2 0 1]
+ [0 2 1]
+ [1 1 2]]
+Board Status: 2
+Position (2, 2):
+[[2 0 2]
+ [1 2 1]
+ [1 2 0]]
+Board Status: 0
+--------------------------------------------------
+
+Problematic State Details:
+Index: 29238
+True Value: -0.965
+Predicted Value: 285
+Normalized Value: 0.8672985781990521
+Absolute Error: 1.832298578199052
+
+Local Board Status:
+[[0 1 1]
+ [0 0 1]
+ [1 1 0]]
+
+Local Board Details:
+Position (0, 0):
+[[0 2 0]
+ [0 1 2]
+ [2 2 0]]
+Board Status: 0
+Position (0, 1):
+[[1 0 2]
+ [0 1 0]
+ [1 2 1]]
+Board Status: 1
+Position (0, 2):
+[[1 2 0]
+ [0 1 0]
+ [0 0 1]]
+Board Status: 1
+Position (1, 0):
+[[1 1 2]
+ [0 0 0]
+ [2 0 1]]
+Board Status: 0
+Position (1, 1):
+[[0 2 2]
+ [0 0 2]
+ [2 2 0]]
+Board Status: 0
+Position (1, 2):
+[[0 0 2]
+ [1 1 1]
+ [1 2 2]]
+Board Status: 1
+Position (2, 0):
+[[1 2 1]
+ [2 0 1]
+ [0 2 1]]
+Board Status: 1
+Position (2, 1):
+[[0 1 2]
+ [1 1 0]
+ [1 1 0]]
+Board Status: 1
+Position (2, 2):
+[[0 1 2]
+ [2 0 1]
+ [2 0 2]]
+Board Status: 0
+--------------------------------------------------
+
+Problematic State Details:
+Index: 33977
+True Value: -0.986
+Predicted Value: 269
+Normalized Value: 0.8293838862559242
+Absolute Error: 1.8153838862559242
+
+Local Board Status:
+[[0 1 1]
+ [0 1 0]
+ [2 0 1]]
+
+Local Board Details:
+Position (0, 0):
+[[2 2 1]
+ [0 2 2]
+ [1 0 0]]
+Board Status: 0
+Position (0, 1):
+[[2 1 0]
+ [1 1 0]
+ [0 1 2]]
+Board Status: 1
+Position (0, 2):
+[[0 2 1]
+ [1 2 1]
+ [2 0 1]]
+Board Status: 1
+Position (1, 0):
+[[0 2 2]
+ [2 1 0]
+ [1 2 2]]
+Board Status: 0
+Position (1, 1):
+[[1 1 0]
+ [0 1 0]
+ [0 1 2]]
+Board Status: 1
+Position (1, 2):
+[[1 2 0]
+ [1 0 2]
+ [2 1 2]]
+Board Status: 0
+Position (2, 0):
+[[1 0 2]
+ [1 2 0]
+ [2 0 1]]
+Board Status: 2
+Position (2, 1):
+[[0 2 2]
+ [0 0 1]
+ [2 0 0]]
+Board Status: 0
+Position (2, 2):
+[[1 1 1]
+ [0 2 0]
+ [1 0 2]]
+Board Status: 1
+--------------------------------------------------
+
+Problematic State Details:
+Index: 13752
+True Value: -0.978
+Predicted Value: 238
+Normalized Value: 0.7559241706161137
+Absolute Error: 1.7339241706161137
+
+Local Board Status:
+[[1 0 1]
+ [0 0 2]
+ [1 0 1]]
+
+Local Board Details:
+Position (0, 0):
+[[1 1 1]
+ [0 0 0]
+ [2 1 1]]
+Board Status: 1
+Position (0, 1):
+[[0 0 2]
+ [0 2 0]
+ [1 1 2]]
+Board Status: 0
+Position (0, 2):
+[[2 0 2]
+ [1 1 1]
+ [0 0 2]]
+Board Status: 1
+Position (1, 0):
+[[1 2 2]
+ [0 1 0]
+ [0 1 2]]
+Board Status: 0
+Position (1, 1):
+[[0 0 0]
+ [2 1 0]
+ [2 2 0]]
+Board Status: 0
+Position (1, 2):
+[[2 0 0]
+ [2 0 1]
+ [2 2 0]]
+Board Status: 2
+Position (2, 0):
+[[2 0 1]
+ [1 0 1]
+ [0 0 1]]
+Board Status: 1
+Position (2, 1):
+[[2 0 2]
+ [1 0 2]
+ [2 1 1]]
+Board Status: 0
+Position (2, 2):
+[[2 2 1]
+ [0 1 1]
+ [1 2 0]]
+Board Status: 1
+--------------------------------------------------
+
+Problematic State Details:
+Index: 18329
+True Value: -0.955
+Predicted Value: 244
+Normalized Value: 0.7701421800947867
+Absolute Error: 1.7251421800947866
+
+Local Board Status:
+[[1 0 1]
+ [0 0 2]
+ [1 0 1]]
+
+Local Board Details:
+Position (0, 0):
+[[1 1 1]
+ [0 0 0]
+ [2 1 1]]
+Board Status: 1
+Position (0, 1):
+[[0 0 2]
+ [0 2 0]
+ [1 1 2]]
+Board Status: 0
+Position (0, 2):
+[[2 0 2]
+ [1 1 1]
+ [0 0 2]]
+Board Status: 1
+Position (1, 0):
+[[1 2 2]
+ [0 0 0]
+ [0 1 2]]
+Board Status: 0
+Position (1, 1):
+[[0 0 0]
+ [0 1 0]
+ [2 2 0]]
+Board Status: 0
+Position (1, 2):
+[[2 0 0]
+ [2 0 1]
+ [2 2 0]]
+Board Status: 2
+Position (2, 0):
+[[2 0 1]
+ [1 0 1]
+ [0 0 1]]
+Board Status: 1
+Position (2, 1):
+[[2 0 2]
+ [1 0 2]
+ [2 1 1]]
+Board Status: 0
+Position (2, 2):
+[[2 2 1]
+ [0 1 1]
+ [1 2 0]]
+Board Status: 1
+--------------------------------------------------
+
+Problematic State Details:
+Index: 18881
+True Value: -0.995
+Predicted Value: 221
+Normalized Value: 0.7156398104265402
+Absolute Error: 1.7106398104265401
+
+Local Board Status:
+[[0 1 1]
+ [0 1 0]
+ [0 0 2]]
+
+Local Board Details:
+Position (0, 0):
+[[1 1 2]
+ [0 2 1]
+ [0 0 1]]
+Board Status: 0
+Position (0, 1):
+[[0 0 0]
+ [1 1 1]
+ [0 0 0]]
+Board Status: 1
+Position (0, 2):
+[[0 2 1]
+ [2 1 1]
+ [1 0 0]]
+Board Status: 1
+Position (1, 0):
+[[1 2 2]
+ [2 2 1]
+ [0 1 2]]
+Board Status: 0
+Position (1, 1):
+[[2 2 1]
+ [1 1 2]
+ [1 0 1]]
+Board Status: 1
+Position (1, 2):
+[[0 1 1]
+ [1 2 2]
+ [2 1 2]]
+Board Status: 0
+Position (2, 0):
+[[0 2 2]
+ [1 0 0]
+ [0 2 0]]
+Board Status: 0
+Position (2, 1):
+[[2 2 0]
+ [0 2 2]
+ [0 1 1]]
+Board Status: 0
+Position (2, 2):
+[[2 2 2]
+ [1 2 0]
+ [0 0 1]]
+Board Status: 2
+--------------------------------------------------
+
+Problematic State Details:
+Index: 17826
+True Value: -0.992
+Predicted Value: 221
+Normalized Value: 0.7156398104265402
+Absolute Error: 1.7076398104265402
+
+Local Board Status:
+[[0 0 2]
+ [0 1 1]
+ [1 1 0]]
+
+Local Board Details:
+Position (0, 0):
+[[1 2 2]
+ [2 0 1]
+ [2 2 0]]
+Board Status: 0
+Position (0, 1):
+[[1 0 1]
+ [0 2 2]
+ [2 1 0]]
+Board Status: 0
+Position (0, 2):
+[[2 0 0]
+ [2 1 2]
+ [2 0 2]]
+Board Status: 2
+Position (1, 0):
+[[0 2 1]
+ [0 2 1]
+ [1 1 2]]
+Board Status: 0
+Position (1, 1):
+[[1 1 1]
+ [2 2 1]
+ [2 0 0]]
+Board Status: 1
+Position (1, 2):
+[[1 1 1]
+ [1 1 2]
+ [2 2 1]]
+Board Status: 1
+Position (2, 0):
+[[1 0 0]
+ [2 1 0]
+ [0 2 1]]
+Board Status: 1
+Position (2, 1):
+[[1 0 1]
+ [1 0 0]
+ [1 0 0]]
+Board Status: 1
+Position (2, 2):
+[[2 0 0]
+ [1 2 2]
+ [0 2 1]]
+Board Status: 0
+--------------------------------------------------
+
+Problematic State Details:
+Index: 45887
+True Value: -0.966
+Predicted Value: 215
+Normalized Value: 0.7014218009478672
+Absolute Error: 1.6674218009478672
+
+Local Board Status:
+[[0 0 2]
+ [0 1 0]
+ [0 1 1]]
+
+Local Board Details:
+Position (0, 0):
+[[2 0 2]
+ [1 0 0]
+ [0 2 2]]
+Board Status: 0
+Position (0, 1):
+[[0 1 0]
+ [0 2 0]
+ [2 0 2]]
+Board Status: 0
+Position (0, 2):
+[[0 2 1]
+ [2 2 2]
+ [2 0 2]]
+Board Status: 2
+Position (1, 0):
+[[0 0 0]
+ [0 2 1]
+ [0 2 2]]
+Board Status: 0
+Position (1, 1):
+[[1 0 0]
+ [1 0 0]
+ [1 0 2]]
+Board Status: 1
+Position (1, 2):
+[[0 0 1]
+ [1 2 1]
+ [0 2 0]]
+Board Status: 0
+Position (2, 0):
+[[0 1 1]
+ [0 0 0]
+ [2 0 1]]
+Board Status: 0
+Position (2, 1):
+[[1 1 1]
+ [0 2 0]
+ [0 1 0]]
+Board Status: 1
+Position (2, 2):
+[[1 0 1]
+ [0 1 2]
+ [0 1 1]]
+Board Status: 1
+--------------------------------------------------
+
+Problematic State Details:
+Index: 64196
+True Value: -0.963
+Predicted Value: 215
+Normalized Value: 0.7014218009478672
+Absolute Error: 1.664421800947867
+
+Local Board Status:
+[[0 0 0]
+ [0 1 1]
+ [2 0 1]]
+
+Local Board Details:
+Position (0, 0):
+[[0 2 0]
+ [2 2 1]
+ [0 1 1]]
+Board Status: 0
+Position (0, 1):
+[[2 1 1]
+ [1 2 2]
+ [1 2 0]]
+Board Status: 0
+Position (0, 2):
+[[1 0 0]
+ [2 2 1]
+ [1 2 0]]
+Board Status: 0
+Position (1, 0):
+[[2 2 0]
+ [1 0 2]
+ [1 0 2]]
+Board Status: 0
+Position (1, 1):
+[[1 2 2]
+ [0 1 1]
+ [1 0 1]]
+Board Status: 1
+Position (1, 2):
+[[1 1 1]
+ [1 2 2]
+ [0 1 2]]
+Board Status: 1
+Position (2, 0):
+[[0 2 2]
+ [0 0 2]
+ [1 0 2]]
+Board Status: 2
+Position (2, 1):
+[[0 1 1]
+ [0 2 2]
+ [2 0 0]]
+Board Status: 0
+Position (2, 2):
+[[2 1 2]
+ [0 1 2]
+ [0 1 1]]
+Board Status: 1
+--------------------------------------------------
+
+Problematic State Details:
+Index: 33388
+True Value: -0.995
+Predicted Value: 201
+Normalized Value: 0.6682464454976302
+Absolute Error: 1.6632464454976303
+
+Local Board Status:
+[[2 0 1]
+ [0 1 1]
+ [0 1 2]]
+
+Local Board Details:
+Position (0, 0):
+[[0 0 2]
+ [0 2 2]
+ [0 2 2]]
+Board Status: 2
+Position (0, 1):
+[[2 1 2]
+ [0 0 0]
+ [1 2 2]]
+Board Status: 0
+Position (0, 2):
+[[1 1 0]
+ [1 1 1]
+ [0 0 0]]
+Board Status: 1
+Position (1, 0):
+[[1 0 2]
+ [0 2 0]
+ [1 2 2]]
+Board Status: 0
+Position (1, 1):
+[[1 0 0]
+ [2 0 2]
+ [1 1 1]]
+Board Status: 1
+Position (1, 2):
+[[1 2 1]
+ [0 0 1]
+ [0 2 1]]
+Board Status: 1
+Position (2, 0):
+[[2 0 2]
+ [2 0 0]
+ [0 1 1]]
+Board Status: 0
+Position (2, 1):
+[[1 1 2]
+ [0 1 0]
+ [0 1 2]]
+Board Status: 1
+Position (2, 2):
+[[1 2 2]
+ [1 2 1]
+ [2 0 1]]
+Board Status: 2
+--------------------------------------------------
