@@ -8,7 +8,6 @@ student_agent = StudentAgent.StudentAgent()  # Create an instance of the Student
 def validate_evaluation_function(student_agent):
     # Load the dataset
     validation_data = load_data()
-
     # Lists for storing predictions and true values
     predictions = []
     true_values = []
@@ -18,7 +17,7 @@ def validate_evaluation_function(student_agent):
     
     # Evaluate on each data point
     for (state, true_evaluation) in validation_data:
-        predicted_evaluation = student_agent.evaluate(state)
+        predicted_evaluation = student_agent.evaluate(state, [1,2,2,2,3,2,1,2.5,2,1,3.4])
         predictions.append(predicted_evaluation)
         true_values.append(true_evaluation)
     
@@ -27,7 +26,7 @@ def validate_evaluation_function(student_agent):
     max_predicted = max(predictions)
 
     for i in range(len(true_values)):
-        normalized_evaluation = 2 * ((predictions[i] - min_predicted) / (max_predicted - min_predicted) - 1)
+        normalized_evaluation = 2 * ((predictions[i] - min_predicted) / (max_predicted - min_predicted)) - 1
         normalized_values.append(normalized_evaluation)
         print(true_values[i], (normalized_evaluation))
         absolute_errors.append(abs(true_values[i] - normalized_evaluation))
@@ -35,7 +34,8 @@ def validate_evaluation_function(student_agent):
 
     print(total)
     print(min_predicted, max_predicted)
-    print("mean_abs_err =", np.mean(absolute_errors))
+    mean_abs_error = np.mean(absolute_errors)
+    print("mean_abs_err =", mean_abs_error)
     
 
 validation_results = validate_evaluation_function(student_agent)
