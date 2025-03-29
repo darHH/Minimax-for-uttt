@@ -35,7 +35,7 @@ def parallel_random_search(student_agent, validation_data, n_samples=50):
     best_mae = float('inf')
     best_weights = None
     print("Working...")
-    possible_values = np.arange(1, 7.01, 0.25)
+    possible_values = np.arange(0, 6.01, 0.1)
 
     # Generate candidates
     candidates = [np.random.choice(possible_values, size=11, replace=True) for _ in range(n_samples)]
@@ -59,4 +59,4 @@ def parallel_random_search(student_agent, validation_data, n_samples=50):
 
 # Main usage:
 validation_data = load_data()  # load once
-best_w, best_err = parallel_random_search(student_agent, validation_data, n_samples=100)
+best_w, best_err = parallel_random_search(student_agent, validation_data, n_samples=50)

@@ -1,25 +1,4 @@
-import torch
-import torch.nn as nn
-import torch.nn.functional as F
-from collections import OrderedDict
-
-class UTTTEvaluator(nn.Module):
-    def __init__(self):
-        super().__init__()
-        self.fc1 = nn.Linear(243, 128)
-        self.fc2 = nn.Linear(128, 64)
-        self.fc3 = nn.Linear(64, 1)
-
-    def forward(self, x):
-        x = F.relu(self.fc1(x))
-        x = F.relu(self.fc2(x))
-        return torch.tanh(self.fc3(x))
-
-class StudentAgent:
-    def __init__(self, depth_limit=3):
-        self.model = UTTTEvaluator()
-        self.depth_limit = depth_limit
-        self.model.load_state_dict(OrderedDict({'fc1.weight': torch.tensor([[ 1.8333e-02, -3.6971e-04, -4.9239e-02, -2.2744e-02,  3.6861e-02,
+'fc1.weight': torch.tensor([[ 1.8333e-02, -3.6971e-04, -4.9239e-02, -2.2744e-02,  3.6861e-02,
          -2.0949e-02, -5.6795e-02, -7.0321e-03, -2.8829e-03, -2.3278e-02,
          -1.6627e-02,  4.7020e-02, -1.7839e-01,  2.1198e-02,  7.0093e-02,
          -4.3270e-02, -1.3321e-02, -4.4680e-02,  1.1071e-01,  6.6711e-02,
@@ -6290,7 +6269,9 @@ class StudentAgent:
          -1.6456e-02,  3.8085e-02, -8.7655e-02,  2.4801e-02, -1.5666e-01,
           1.0028e-01, -1.4881e-02, -1.3265e-02,  1.0545e-01, -2.0263e-02,
          -1.2861e-01,  1.3231e-02,  4.7267e-03, -1.1956e-01,  6.4913e-02,
-          2.4128e-02,  7.6181e-02, -2.1822e-01]]), 'fc1.bias': torch.tensor([-0.0049,  0.0453,  0.0079,  0.0365, -0.0289, -0.0055,  0.0049,  0.0407,
+          2.4128e-02,  7.6181e-02, -2.1822e-01]])
+
+'fc1.bias': torch.tensor([-0.0049,  0.0453,  0.0079,  0.0365, -0.0289, -0.0055,  0.0049,  0.0407,
          0.0271,  0.0301, -0.0563,  0.0111, -0.0513,  0.0264, -0.0480, -0.0097,
          0.0238,  0.0346,  0.0528, -0.0060, -0.0373, -0.0095, -0.0167, -0.0646,
         -0.0096, -0.0320, -0.0138, -0.0626, -0.0471, -0.0036,  0.0505, -0.0219,
@@ -6305,7 +6286,9 @@ class StudentAgent:
         -0.0118,  0.0043,  0.0019,  0.0294,  0.0494,  0.0361, -0.0112, -0.0252,
         -0.0275, -0.0067,  0.0088, -0.0276, -0.0816, -0.0319,  0.0049, -0.0077,
          0.0415, -0.0492,  0.0282,  0.0206, -0.0465, -0.0170, -0.0464, -0.0153,
-        -0.0021, -0.0113, -0.0281,  0.0307, -0.0180, -0.0108, -0.0184, -0.0661]), 'fc2.weight': torch.tensor([[ 1.3894e-02,  8.7375e-02, -7.3998e-02, -1.1576e-01, -8.8095e-02,
+        -0.0021, -0.0113, -0.0281,  0.0307, -0.0180, -0.0108, -0.0184, -0.0661])
+
+'fc2.weight': torch.tensor([[ 1.3894e-02,  8.7375e-02, -7.3998e-02, -1.1576e-01, -8.8095e-02,
           6.7400e-02, -9.2381e-02, -1.2617e-01,  4.7565e-02,  4.5601e-02,
          -1.4879e-01,  5.2686e-02, -3.2071e-02,  8.4666e-02, -9.7930e-02,
           1.1507e-01,  1.0753e-01, -7.0414e-02, -2.2721e-02, -1.3267e-01,
@@ -7968,81 +7951,25 @@ class StudentAgent:
           8.5337e-02, -1.2850e-04,  6.8669e-02,  7.9580e-02,  4.7928e-02,
           1.1887e-02,  1.0872e-01, -8.9429e-02, -9.2047e-02,  8.4627e-02,
          -3.3398e-02,  9.3013e-02,  1.0308e-01,  2.2628e-02, -8.5416e-02,
-         -1.6201e-01,  9.6274e-03,  4.6913e-02]]), 'fc2.bias': torch.tensor([-0.0351, -0.0391,  0.0810, -0.0909, -0.0309,  0.0511, -0.0213,  0.0837,
+         -1.6201e-01,  9.6274e-03,  4.6913e-02]])
+
+'fc2.bias': torch.tensor([-0.0351, -0.0391,  0.0810, -0.0909, -0.0309,  0.0511, -0.0213,  0.0837,
          0.0391, -0.0356, -0.0303,  0.0543,  0.0486, -0.0808,  0.0473,  0.0717,
          0.0127, -0.0696,  0.0690, -0.0235,  0.0005,  0.0654,  0.0767,  0.0305,
          0.0137,  0.0975,  0.0084,  0.0814, -0.0661,  0.0808, -0.0093,  0.0019,
          0.0091,  0.0642,  0.0027, -0.0648,  0.0116, -0.0420,  0.0726,  0.0224,
         -0.1058,  0.0714, -0.0354,  0.0651,  0.0398,  0.0847, -0.0175,  0.0255,
         -0.0074,  0.0434,  0.0517,  0.0767,  0.0869, -0.0012, -0.0462, -0.0714,
-         0.0467,  0.0713, -0.0508, -0.0313, -0.0019,  0.0850, -0.0339,  0.0796]), 'fc3.weight': torch.tensor([[-0.2678,  0.3323, -0.1057, -0.2138,  0.2908,  0.2938,  0.2554, -0.3390,
+         0.0467,  0.0713, -0.0508, -0.0313, -0.0019,  0.0850, -0.0339,  0.0796])
+
+'fc3.weight': torch.tensor([[-0.2678,  0.3323, -0.1057, -0.2138,  0.2908,  0.2938,  0.2554, -0.3390,
           0.2922,  0.3561,  0.2742,  0.1862, -0.1043,  0.2075, -0.2214, -0.1601,
          -0.1463, -0.2203,  0.0922,  0.0155, -0.2391,  0.1681, -0.2352,  0.3110,
           0.2960,  0.1201, -0.2080,  0.1896, -0.3902,  0.1777,  0.4299,  0.0096,
          -0.2857, -0.1335,  0.2374, -0.3315, -0.1172, -0.2875, -0.2619, -0.2236,
           0.5060, -0.1615, -0.2627,  0.3584,  0.2252, -0.1860, -0.1578, -0.2299,
           0.3304, -0.1706,  0.3384, -0.1224,  0.2553, -0.1438, -0.2979, -0.3216,
-         -0.3466, -0.0655, -0.3521,  0.2477,  0.2345, -0.1993, -0.2178,  0.1463]]), 'fc3.bias': torch.tensor([0.0405])}))
+         -0.3466, -0.0655, -0.3521,  0.2477,  0.2345, -0.1993, -0.2178,  0.1463]])
 
-    def state_to_tensor(self, state):
-        board = state.board.reshape(9, 9)
-        tensor = torch.zeros(81,3)
-        for idx, val in enumerate(board.flatten()):
-            tensor[idx, val] = 1
-        return tensor.flatten().unsqueeze(0)
+'fc3.bias': torch.tensor([0.0405])
 
-    def evaluate(self, state):
-        if state.is_terminal():
-            return state.terminal_utility() * 100
-        with torch.no_grad():
-            return self.model(self.state_to_tensor(state)).item() * 100 
-        
-    def minimax_alpha_beta(self, state, depth, alpha, beta, maximizing_player):
-        if depth == 0 or state.is_terminal():
-            return self.evaluate(state)
-
-        valid_actions = state.get_all_valid_actions()
-
-        if maximizing_player:
-            max_eval = float('-inf')
-            for action in valid_actions:
-                next_state = state.change_state(action, in_place=False)
-                eval = self.minimax_alpha_beta(next_state, depth - 1, alpha, beta, False)
-                max_eval = max(max_eval, eval)
-                alpha = max(alpha, eval)
-                
-                if beta <= alpha:
-                    break
-            return max_eval
-        else:
-            min_eval = float('inf')
-            for action in valid_actions:
-                next_state = state.change_state(action, in_place=False)
-                eval = self.minimax_alpha_beta(next_state, depth - 1, alpha, beta, True)
-                min_eval = min(min_eval, eval)
-                beta = min(beta, eval)
-                
-                if beta <= alpha:
-                    break
-            return min_eval
-
-    def choose_action(self, state):
-        best_score = float('-inf')
-        best_action = None
-        alpha = float('-inf')
-        beta = float('inf')
-        
-        valid_actions = state.get_all_valid_actions()
-        
-        for action in valid_actions:
-            next_state = state.change_state(action, in_place=False)
-
-            score = self.minimax_alpha_beta(next_state, depth=self.depth_limit-1, alpha=alpha, beta=beta, maximizing_player=False)
-            
-            if score > best_score:
-                best_score = score
-                best_action = action
-            
-            alpha = max(alpha, score)
-        
-        return best_action
