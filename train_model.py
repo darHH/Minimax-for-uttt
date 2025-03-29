@@ -16,16 +16,16 @@ X, y = prepare_data(states_array, evaluations_array)
 
 # Train-test split
 X_train, X_val, y_train, y_val = train_test_split(
-    X, y, test_size=0.1, random_state=42
+    X, y, test_size=0.15, random_state=42
 )
 
 # Model setup
 model = UTTTEvaluator()
 criterion = nn.MSELoss()
-optimizer = optim.Adam(model.parameters(), lr=0.0005)
+optimizer = optim.Adam(model.parameters(), lr=0.00019)
 
 # Training loop
-epochs, batch_size = 20, 256
+epochs, batch_size = 40, 256
 for epoch in range(epochs):
     model.train()
     permutation = torch.randperm(X_train.size()[0])

@@ -1,9 +1,9 @@
 import numpy as np
 
 from utils import load_data
-import StudentAgent
+import StudentAgentNN
 
-student_agent = StudentAgent.StudentAgent()  # Create an instance of the StudentAgent class
+student_agent = StudentAgentNN.StudentAgent()  # Create an instance of the StudentAgent class
 
 from joblib import Parallel, delayed
 

@@ -1,13 +1,13 @@
 import numpy as np
 
 from utils import load_data
-import StudentAgent
+import StudentAgentNN
 
 from sklearn.model_selection import GridSearchCV, RandomizedSearchCV
 from sklearn.base import BaseEstimator, RegressorMixin
 from sklearn.preprocessing import MinMaxScaler
 
-student_agent = StudentAgent.StudentAgent()  # Create an instance of the StudentAgent class
+student_agent = StudentAgentNN.StudentAgent()  # Create an instance of the StudentAgent class
 class WeightTuner(BaseEstimator, RegressorMixin):
     def __init__(self, weights=None):
         self.weights = weights if weights is not None else np.ones(11)
