@@ -129,6 +129,9 @@ class StudentAgent:
         # and apply same logic from evaluate local board to global board (add slightly more weight for global board)
         evaluation += m * evaluate_local_board(local_board_status)
 
+        # if middle global board is still ongoing, then avoid local middle squares so opponent cannot win middle global board
+        if local_board_status[1][1] == 0:
+            evaluation -= 2 * np.sum(state.board[:, :, 1, 1] == 1)
 
         return evaluation
         
@@ -167,6 +170,10 @@ class StudentAgent:
         best_action = None
         alpha = float('-inf')
         beta = float('inf')
+
+        # First move always take middle
+        if state.prev_local_action == None:
+            return (1,1,1,1)
         
         valid_actions = state.get_all_valid_actions()
         

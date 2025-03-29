@@ -1,9 +1,9 @@
 import numpy as np
 
 from utils import load_data
-import StudentAgentNN
+import StudentAgent
 
-student_agent = StudentAgentNN.StudentAgent()  # Create an instance of the StudentAgent class
+student_agent = StudentAgent.StudentAgent()  # Create an instance of the StudentAgent class
 
 from joblib import Parallel, delayed
 
@@ -59,4 +59,4 @@ def parallel_random_search(student_agent, validation_data, n_samples=50):
 
 # Main usage:
 validation_data = load_data()  # load once
-best_w, best_err = parallel_random_search(student_agent, validation_data, n_samples=50)
+best_w, best_err = parallel_random_search(student_agent, validation_data, n_samples=20)
