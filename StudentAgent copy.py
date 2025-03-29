@@ -189,14 +189,7 @@ class StudentAgent:
         # First move always take middle
         if state.prev_local_action == None:
             return (1,1,1,1)
-        # Restrict first 8 moves to corner subgames only
-        num_pieces = np.sum(state.board != 0)
-        if num_pieces < 8:
-            corner_positions = [(0, 0), (0, 2), (2, 0), (2, 2)]
-            valid_actions = [
-                action for action in valid_actions
-                if (action[0], action[1]) in corner_positions
-            ]
+
         # Return immediately
         for action in valid_actions:
             next_state = state.change_state(action, in_place=False)
@@ -204,17 +197,29 @@ class StudentAgent:
 
             # Win global immediately
             if next_state.is_terminal():
-                if next_state.terminal_utility() == 1:
+                if state.terminal_utility() == 1:
                     return action
+
+            # Win local immediately
+            if next_state.local_board_status[global_r][global_c] == 1:
+                return action  
+
+            # Block immediate threat
+            if self.can_block_win(state.board[global_r][global_c], local_r, local_c):
+                return action  
         
             # 3. Send opponent to a trap subgame
             num_pieces = np.sum(state.board != 0)
             if 10 < num_pieces < 60:  # mid-game
+                # check for trap
                     target_local_status = state.local_board_status[local_r][local_c]
+
                     if target_local_status == 0:
                         local_board = state.board[local_r][local_c]
+
                         my_threats = self.count_open_lines(local_board, player=1)
                         opponent_threats = self.count_open_lines(local_board, player=2)
+                    
                         if opponent_threats == 0 and my_threats >= 1:
                             return action 
                     
