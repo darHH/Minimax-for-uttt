@@ -22,10 +22,10 @@ X_train, X_val, y_train, y_val = train_test_split(
 # Model setup
 model = UTTTEvaluator()
 criterion = nn.MSELoss()
-optimizer = optim.Adam(model.parameters(), lr=0.00019)
+optimizer = optim.Adam(model.parameters(), lr=0.00019, weight_decay=1e-4)
 
 # Training loop
-epochs, batch_size = 40, 256
+epochs, batch_size = 100, 256
 for epoch in range(epochs):
     model.train()
     permutation = torch.randperm(X_train.size()[0])

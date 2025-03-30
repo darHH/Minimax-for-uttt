@@ -15,12 +15,12 @@ class StudentAgent:
         a,b,c,d,e,f,g,h,k,l,m = weights
         evaluation = 0 
 
-        # # if terminal, if win, return max + 1, else if lose return min - 1 and stop
-        # if state.is_terminal():
-        #     if state.terminal_utility() == 1:
-        #         return 125 # max + 1
-        #     elif state.terminal_utility() == 0:
-        #         return -130 # max - 1
+        # if terminal, if win, return max + 1, else if lose return min - 1 and stop
+        if state.is_terminal():
+            if state.terminal_utility() == 1:
+                return 125 # max + 1
+            elif state.terminal_utility() == 0:
+                return -130 # max - 1
             
         # takes in local board which is 3x3 numpy: 1 for p1, 2 for p2, 0 for empty
         def evaluate_local_board(local_board):
@@ -158,26 +158,7 @@ class StudentAgent:
                 if beta <= alpha:
                     break
             return min_eval
-        
-    def count_open_lines(self, local_board, player):
-        opponent = 2 if player == 1 else 1
-        lines = [
-            [(0,0), (0,1), (0,2)],
-            [(1,0), (1,1), (1,2)],
-            [(2,0), (2,1), (2,2)],
-            [(0,0), (1,0), (2,0)],
-            [(0,1), (1,1), (2,1)],
-            [(0,2), (1,2), (2,2)],
-            [(0,0), (1,1), (2,2)],
-            [(0,2), (1,1), (2,0)],
-        ]
-        count = 0
-        for line in lines:
-            values = [local_board[r, c] for r, c in line]
-            if opponent not in values and (player in values):
-                count += 1
-        return count
-    
+
     def choose_action(self, state):
         best_score = float('-inf')
         best_action = None
@@ -190,39 +171,17 @@ class StudentAgent:
         if state.prev_local_action == None:
             return (1,1,1,1)
 
-        # Return immediately
         for action in valid_actions:
-            next_state = state.change_state(action, in_place=False)
             global_r, global_c, local_r, local_c = action
-
-            # Win global immediately
-            if next_state.is_terminal():
-                if state.terminal_utility() == 1:
-                    return action
-
-            # Win local immediately
+            next_state = state.change_state(action, in_place=False)
             if next_state.local_board_status[global_r][global_c] == 1:
-                return action  
+                return action  # Win immediately
 
-            # Block immediate threat
+        for action in valid_actions:
+            global_r, global_c, local_r, local_c = action
             if self.can_block_win(state.board[global_r][global_c], local_r, local_c):
-                return action  
-        
-            # 3. Send opponent to a trap subgame
-            num_pieces = np.sum(state.board != 0)
-            if 10 < num_pieces < 60:  # mid-game
-                # check for trap
-                    target_local_status = state.local_board_status[local_r][local_c]
-
-                    if target_local_status == 0:
-                        local_board = state.board[local_r][local_c]
-
-                        my_threats = self.count_open_lines(local_board, player=1)
-                        opponent_threats = self.count_open_lines(local_board, player=2)
-                    
-                        if opponent_threats == 0 and my_threats >= 1:
-                            return action 
-                    
+                return action  # Block immediate threat
+                
         # Strategic move prioritization
         prioritized_actions = self.prioritize_actions(state, valid_actions)
 
@@ -248,14 +207,14 @@ class StudentAgent:
             global_r, global_c, local_r, local_c = action
             score = 0
             
-            # # 1. Prioritize winning moves in any local board
-            # next_state = state.change_state(action, in_place=False)
-            # if next_state.local_board_status[global_r, global_c] == 1:
-            #     score += 1000
+            # 1. Prioritize winning moves in any local board
+            next_state = state.change_state(action, in_place=False)
+            if next_state.local_board_status[global_r, global_c] == 1:
+                score += 1000
                 
-            # # 2. Prioritize blocking opponent's winning moves
-            # if self.can_block_win(state.board[global_r][global_c], local_r, local_c):
-            #     score += 800
+            # 2. Prioritize blocking opponent's winning moves
+            if self.can_block_win(state.board[global_r][global_c], local_r, local_c):
+                score += 800
                 
             # 3. Prefer center of local boards (especially early game)
             if global_r == 1 and global_c == 1:
